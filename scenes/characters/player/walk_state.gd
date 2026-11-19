@@ -19,9 +19,13 @@ func _on_physics_process(_delta : float) -> void:
 		animated_sprite_2d.play("walk_right")
 	elif direction == Vector2.LEFT:
 		animated_sprite_2d.play("walk_left")
-		
+	
+	player.velocity = direction * speed
+	player.move_and_slide()
+	
 func _on_next_transitions() -> void:
-	pass
+		if !GameInputEvents.is_movement_input():
+			transition.emit("Idle")
 
 
 func _on_enter() -> void:
